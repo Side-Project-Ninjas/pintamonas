@@ -16,15 +16,16 @@ La aplicación pretende utilizar el stack MEAN.
 A continuación una lista de las carpetas que conforman la arquitectura.
 
 ```
-server/             --> código del servidor
-  config/           --> configuración del servidor
-    environment/    --> configuración del entorno
-  ||                --> archivos y carpetas del servidor por definir
-client/             --> código del cliente
-  views/            --> vistas
-  controllers/      --> controladores
-  index.html        --> archivo index
-  ||                --> archivos y carpetas del servidor por definir
+src/                --> código de la aplicación
+  server/             --> código del servidor
+    config/           --> configuración del servidor
+      environment/    --> configuración del entorno
+    ||                --> archivos y carpetas del servidor por definir
+  client/             --> código del cliente
+    views/            --> vistas
+    controllers/      --> controladores
+    index.html        --> archivo index
+    ||                --> archivos y carpetas del servidor por definir
 public/             --> carpeta donde se sirve la aplicación
 ```
 
