@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Pintamonas</title>
+</head>
+
+<body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        //SocketIO Debug
+        //localStorage.debug = '*';
+
+        var socket = io();
+
+        socket.on('connect', function() {
+            console.log('CONNECTED');
+        })
+    </script>
+</body>
+
+</html>
