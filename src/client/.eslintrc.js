@@ -1,6 +1,7 @@
 module.exports = {
     "env": {
-        "browser": true
+        "browser": true,
+        "jquery": true
     },
     "extends": "eslint:recommended",
     "rules": {
@@ -16,5 +17,8 @@ module.exports = {
             "error",
             "always"
         ]
+    },
+    "globals": {
+      "angular": true
     }
 };
