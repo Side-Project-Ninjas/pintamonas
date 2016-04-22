@@ -4,8 +4,7 @@
 angular.module('pintamonas', [
   'ngRoute',
   'pintamonas.login',
-  'pintamonas.painting',
-  'pintamonas.version'
+  'pintamonas.painting'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/login'});
