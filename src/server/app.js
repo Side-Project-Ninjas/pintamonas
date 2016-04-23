@@ -23,6 +23,6 @@ require('./config/socket.io')(io);
 
 // Start server
 // ============
-http.listen(3000, function() {
-    console.log('listening on :{0}'.format(config.port).green);
+http.listen(3000, function () {
+  console.log('listening on :{0}'.format(config.port).green);
 });
