@@ -1,0 +1,19 @@
+{
+    "rules": {
+        "no-mixed-requires": 1,
+        "no-new-require": 1,
+        "no-path-concat": 1,
+        "no-sync": 1,
+        "indent": [
+            "error",
+            4
+        ]
+    },
+    "globals": {
+        "require": true,
+        "module": true,
+        "console": true,
+        "process": true,
+        "exports": true
+    }
+}

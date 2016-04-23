@@ -1,6 +1,10 @@
 module.exports = {
     "env": {
-        "browser": true
+        "browser": true,
+        "jquery": true
+    },
+    "globals": {
+        "angular": true
     },
     "extends": "eslint:recommended",
     "rules": {
@@ -15,6 +19,7 @@ module.exports = {
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        "no-console": 1
     }
 };
