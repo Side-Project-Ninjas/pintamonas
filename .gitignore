@@ -5,3 +5,4 @@ src/client/vendor/
 tmp
 .DS_Store
 .idea
+./public
