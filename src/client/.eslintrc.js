@@ -3,6 +3,9 @@ module.exports = {
         "browser": true,
         "jquery": true
     },
+    "globals": {
+        "angular": true
+    },
     "extends": "eslint:recommended",
     "rules": {
         "indent": [
@@ -16,9 +19,7 @@ module.exports = {
         "semi": [
             "error",
             "always"
-        ]
-    },
-    "globals": {
-      "angular": true
+        ],
+        "no-console": 1
     }
 };
