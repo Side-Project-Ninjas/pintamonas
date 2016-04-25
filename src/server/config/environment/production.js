@@ -10,9 +10,9 @@ var path = require('path');
 module.exports = {
     // Server port
     port: process.env.PORT ||
-          8080,
+        8080,
 
-    // Public path
-    publicPath: path.normalize(__dirname + '/../../../public')
+    // Public path from project root
+    publicPath: path.resolve('public')
 
 };
