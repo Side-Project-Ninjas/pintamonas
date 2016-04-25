@@ -23,8 +23,8 @@ require("./config/socket.io")(io);
 
 // Start server
 // ============
-http.listen(3000, function() {
-    console.log("listening on :{0}".format(config.port).green);
+http.listen(config.port, function() {
+    console.log("listening on http://{0}:{1}".format(config.ip, config.port).green);
 });
 
 module.exports = {
