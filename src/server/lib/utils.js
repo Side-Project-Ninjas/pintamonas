@@ -1,7 +1,7 @@
 /**
  * Utils module
  */
-'use strict';
+"use strict";
 
 function getRandomInt(min, max){
     min = min || 0;

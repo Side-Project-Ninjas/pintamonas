@@ -1,13 +1,13 @@
 /**
  * Development environment configuration
  */
-'use strict';
+"use strict";
 
-var path = require('path');
+var path = require("path");
 
 // Export dev config
 // =================
 module.exports = {
     // Public path from project root
-    publicPath: path.resolve('public')
+    publicPath: path.resolve("public")
 };
