@@ -4,7 +4,8 @@
 angular.module('pintamonas', [
   'ngRoute',
   'pintamonas.login',
-  'pintamonas.painting'
+  'pintamonas.painting',
+  'pintamonas.blackboard'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/login'});
@@ -14,8 +15,8 @@ config(['$routeProvider', function($routeProvider) {
     controller: 'LoginCtrl'
   });
 
-  $routeProvider.when('/painting', {
-    templateUrl: 'views/painting.html',
-    controller: 'PaintingCtrl'
+  $routeProvider.when('/blackboard', {
+    templateUrl: 'views/blackboard.html',
+    controller: 'blackboardCtrl'
   });
 }]);

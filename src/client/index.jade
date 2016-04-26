@@ -1,0 +1,20 @@
+doctype html
+html(lang="es" ng-app='pintamonas' class="no-js")
+  head
+    meta(charset='utf-8')
+    title= Pintamonas
+    link(rel='stylesheet', type='text/css', href='resources/styles/bootstrap.min.css')
+    link(rel='stylesheet', type='text/css', href='resources/styles/main.css')   
+  body
+    header.banner
+      h1.title Pinta Monas
+    //Content begins
+    div(ng-view).col-md-12
+    //Content ends
+    footer
+      ul
+        li Side Project Ninjas
+    script(src='vendor/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js')
+    script(src='vendor/angular/angular.js')
+    script(src='vendor/angular-route/angular-route.js')
+    script(src='app.js')
