@@ -39,7 +39,9 @@ function getRoom(room) {
 function getRoomList() {
     var names = [];
     for (var room in rooms) {
-        names.push(room);
+        if ({}.hasOwnProperty.call(rooms, room)) {
+            names.push(room);
+        }
     }
     return names;
 }
