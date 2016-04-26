@@ -3,8 +3,9 @@ html(lang="es" ng-app='pintamonas' class="no-js")
   head
     meta(charset='utf-8')
     title= Pintamonas
-    link(rel='stylesheet', type='text/css', href='resources/styles/bootstrap.min.css')
-    link(rel='stylesheet', type='text/css', href='resources/styles/main.css')   
+    link(rel='stylesheet', type='text/css', href='resources/css/bootstrap.min.css')
+    link(rel='stylesheet', type='text/css', href='resources/css/app.css')
+
   body
     header.banner
       h1.title Pinta Monas
@@ -14,7 +15,6 @@ html(lang="es" ng-app='pintamonas' class="no-js")
     footer
       ul
         li Side Project Ninjas
-    script(src='vendor/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js')
-    script(src='vendor/angular/angular.js')
-    script(src='vendor/angular-route/angular-route.js')
-    script(src='app.js')
+      
+    script(src='/resources/vendor/vendor.js')
+    script(src='/resources/js/app.js')
