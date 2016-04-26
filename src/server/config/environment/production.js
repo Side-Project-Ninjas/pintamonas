@@ -1,9 +1,9 @@
 /**
  * Production environment configuration
  */
-'use strict';
+"use strict";
 
-var path = require('path');
+var path = require("path");
 
 // Export prod conf
 // ================
@@ -13,6 +13,6 @@ module.exports = {
         8080,
 
     // Public path from project root
-    publicPath: path.resolve('public')
+    publicPath: path.resolve("public")
 
 };
