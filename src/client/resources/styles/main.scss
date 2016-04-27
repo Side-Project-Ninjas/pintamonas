@@ -1,5 +1,23 @@
+@import "bootstrap.min.css";
+
+@font-face {
+	font-family: 'fuente-titulo';
+  src : url('../fonts/AdmirationPains.ttf');
+}
+@font-face {
+	font-family: 'fuente-cuerpo';
+  src : url('../fonts/SourceCodePro-Light.otf');
+}
+body{
+	font-family: "fuente-cuerpo";
+}
 .banner{
-	height: 100px;
+	height: 130px;
+}
+.title{
+	font-family: "fuente-titulo";
+	line-height: 130px;
+	font-size: 64px;
 }
 .user{
 	text-align: center;
@@ -23,7 +41,7 @@ h3{
 	border-top-right-radius: 8px;
 	text-align: center;
 	color: white;
-	background-color: #5858FA;
+	background-color: #89609E;
 	opacity: 1;
 }
 .bg-success{
@@ -32,6 +50,9 @@ h3{
 }
 .v2 > .user{
 	margin-bottom: 10px;
+}
+.container-fluid{
+	min-height: 750px;
 }
 footer{
 	text-align: center;
