@@ -29,12 +29,20 @@ body{
 .title{
 	text-align: center;
 }
+.col-main{
+	list-style: none;
+	border: 1px solid black;
+}
+.col-main>li{
+	border: 1px solid black;
+}
 .chat{
 	height: 700px;
 }
-.input-chat{
+#chat-input{
 	height: 50px;
 	background-color: white;
+	resize: none;
 }
 h3{
 	border-top-left-radius: 8px;
