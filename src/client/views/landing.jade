@@ -3,7 +3,9 @@
     .jumbotron
       h1 Welcome to PintaMonas Dude!
       p Go to 
-        a(href="#/blackboard") painting
+        a(href="#/blackboard" onclick="onjoinclick()") painting
+        input#joinroom.invisible(value="1")
+        input#joinusername.invisible(value="Raul")
     .col-md-6
       h3 Columna 1
       ul.col-main

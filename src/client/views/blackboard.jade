@@ -14,7 +14,26 @@
       .well.well-sm.user User2
     .col-md-8
       h3 Pizarra
-      canvas#blackboard.col-md-12
+      div.canvasContainer
+        canvas#painting.painting(width="600" height="600")
+        button(ng-click="clearArea()")
+          | Clear Area
+        | Line width:
+        select#selWidth
+          option(value="1") 1
+          option(value="3" selected="selected") 3
+          option(value="5") 5
+          option(value="7") 7
+          option(value="9") 9
+          option(value="11") 11
+        | Color:
+        select#selColor
+          option(value="black") black
+          option(value="blue" selected="selected") blue
+          option(value="red") red
+          option(value="green") green
+          option(value="yellow") yellow
+          option(value="gray") gray
     .col-md-3
       h3 Chat
       .chat

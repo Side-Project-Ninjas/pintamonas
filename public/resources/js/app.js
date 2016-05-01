@@ -1,6 +1,31 @@
 (function(){
   'use strict';
 
+  // Declare app level module which depends on views, and components
+  angular.module('pintamonas', [
+    'ngRoute',
+    'pintamonas.landing',
+    'pintamonas.blackboard'
+  ]).
+  config(['$routeProvider', function($routeProvider) {
+    $routeProvider.otherwise({redirectTo: '/'});
+
+    $routeProvider.when('/', {
+      templateUrl: 'views/landing.html',
+      controller: 'LandingCtrl'
+    });
+
+    $routeProvider.when('/blackboard', {
+      templateUrl: '../views/blackboard.html',
+      controller: 'BlackboardCtrl'
+    });
+  }]);
+
+})();
+
+(function(){
+  'use strict';
+
   angular.module('pintamonas.blackboard', ['ngRoute'])
 
   .controller('BlackboardCtrl', ['$scope', '$interval', function($scope, $interval) {
@@ -68,6 +93,16 @@
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     }
+
+  }]);
+})();
+
+(function(){
+  'use strict';
+
+  angular.module('pintamonas.landing', ['ngRoute'])
+
+  .controller('LandingCtrl', [function() {
 
   }]);
 })();

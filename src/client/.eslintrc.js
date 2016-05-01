@@ -4,7 +4,8 @@ module.exports = {
         "jquery": true
     },
     "globals": {
-        "angular": true
+        "angular": true,
+        "socket": true
     },
     "extends": "eslint:recommended",
     "rules": {

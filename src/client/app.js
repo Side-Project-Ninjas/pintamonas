@@ -4,8 +4,7 @@
   // Declare app level module which depends on views, and components
   angular.module('pintamonas', [
     'ngRoute',
-    'pintamonas.login',
-    'pintamonas.painting',
+    'pintamonas.landing',
     'pintamonas.blackboard'
   ]).
   config(['$routeProvider', function($routeProvider) {
@@ -16,14 +15,9 @@
       controller: 'LandingCtrl'
     });
 
-    $routeProvider.when('/login', {
-      templateUrl: 'views/login.html',
-      controller: 'LoginCtrl'
-    });
-
     $routeProvider.when('/blackboard', {
       templateUrl: '../views/blackboard.html',
-      controller: 'blackboardCtrl'
+      controller: 'BlackboardCtrl'
     });
   }]);
 
