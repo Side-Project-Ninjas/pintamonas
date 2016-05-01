@@ -1,7 +1,7 @@
 /**
  * Routes module
  */
-'use strict';
+"use strict";
 
 // Export routes
 // ============

@@ -1,0 +1,35 @@
+.banner{
+	height: 100px;
+}
+.user{
+	text-align: center;
+}
+.blackboard{
+	background-color: white;
+	height: 700px;
+}
+.title{
+	text-align: center;
+}
+.chat{
+	height: 700px;
+}
+.input-chat{
+	height: 50px;
+	background-color: white;
+}
+h3{
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	text-align: center;
+	color: white;
+	background-color: #5858FA;
+	opacity: 1;
+}
+.bg-success{
+	background-color: #62C462;
+	color: white;
+}
+.v2 > .user{
+	margin-bottom: 10px;
+}

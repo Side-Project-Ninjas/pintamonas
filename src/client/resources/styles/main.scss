@@ -1,0 +1,67 @@
+@import "bootstrap.min.css";
+
+@font-face {
+	font-family: 'fuente-titulo';
+  src : url('../fonts/AdmirationPains.ttf');
+}
+@font-face {
+	font-family: 'fuente-cuerpo';
+  src : url('../fonts/SourceCodePro-Light.otf');
+}
+body{
+	font-family: "fuente-cuerpo";
+}
+.banner{
+	height: 130px;
+}
+.title{
+	font-family: "fuente-titulo";
+	line-height: 130px;
+	font-size: 64px;
+}
+.user{
+	text-align: center;
+}
+#blackboard{
+	background-color: white;
+	height: 700px;
+}
+.title{
+	text-align: center;
+}
+.col-main{
+	list-style: none;
+	border: 1px solid black;
+}
+.col-main>li{
+	border: 1px solid black;
+}
+.chat{
+	height: 700px;
+}
+#chat-input{
+	height: 50px;
+	background-color: white;
+	resize: none;
+}
+h3{
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	text-align: center;
+	color: white;
+	background-color: #89609E;
+	opacity: 1;
+}
+.bg-success{
+	background-color: #62C462;
+	color: white;
+}
+.v2 > .user{
+	margin-bottom: 10px;
+}
+.container-fluid{
+	min-height: 750px;
+}
+footer{
+	text-align: center;
+}
