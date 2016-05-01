@@ -58,6 +58,22 @@ function onPing(socket) {
     });
 }
 
+function onSendData(socket) {
+    socket.on("client:send-data", function(data) {
+        if (socket.room){
+            socket.broadcast.to(socket.room).emit("server:send-data", data);
+        }
+    });
+}
+
+function onReceiveData(socket) {
+    socket.on("client:receive-data", function(data) {
+        if (socket.room){
+            socket.broadcast.to(socket.room).emit("server:receive-data", data);
+        }
+    });
+}
+
 // Set the SocketIO config up
 // ==========================
 module.exports = function(socketio) {
@@ -87,6 +103,8 @@ module.exports = function(socketio) {
         onGetRooms(socket);
         onUpdateChat(socket);
         onPing(socket);
+        onSendData(socket);
+        onReceiveData(socket);
         socket.log("USER CONNECTED".blue);
     });
 };
