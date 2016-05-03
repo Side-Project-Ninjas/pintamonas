@@ -60,7 +60,6 @@ function onPing(socket) {
 
 function onSendData(socket) {
     socket.on("client:send-data", function(data) {
-        socket.log(socket.room);
         if (socket.room){
             socket.broadcast.to(socket.room).emit("server:send-data", data);
         }
