@@ -58,18 +58,26 @@ function onPing(socket) {
     });
 }
 
-function onSendData(socket) {
-    socket.on("client:send-data", function(data) {
+function onSendDrawing(socket) {
+    socket.on("client:send-drawing", function(data) {
         if (socket.room){
-            socket.broadcast.to(socket.room).emit("server:send-data", data);
+            socket.broadcast.to(socket.room).emit("server:send-drawing", data);
         }
     });
 }
 
-function onReceiveData(socket) {
-    socket.on("client:receive-data", function(data) {
+function onSendColor(socket) {
+    socket.on("client:send-color", function(data) {
         if (socket.room){
-            socket.broadcast.to(socket.room).emit("server:receive-data", data);
+            socket.broadcast.to(socket.room).emit("server:send-color", data);
+        }
+    });
+}
+
+function onSendSize(socket) {
+    socket.on("client:send-size", function(data) {
+        if (socket.room){
+            socket.broadcast.to(socket.room).emit("server:send-size", data);
         }
     });
 }
@@ -103,8 +111,9 @@ module.exports = function(socketio) {
         onGetRooms(socket);
         onUpdateChat(socket);
         onPing(socket);
-        onSendData(socket);
-        onReceiveData(socket);
+        onSendDrawing(socket);
+        onSendColor(socket);
+        onSendSize(socket);
         socket.log("USER CONNECTED".blue);
     });
 };
