@@ -1,0 +1,38 @@
+.container
+  .row
+    .col-md-9
+      h3 Server List
+      table.col-md-12.table-hover.table-striped
+        thead
+          tr
+            th Nombre
+            th Jugadores
+            th Dificultad
+            th Ronda
+        tbody
+          tr.server-info
+            td AAAAAAAAA
+            td 10/12
+            td.text-normal Normal
+            td 1/3
+          tr.server-info
+            td AAAAAAAAA
+            td 10/12
+            td.text-easy Ez Pz
+            td 1/3
+          each val in [1, 2, 3, 4, 5,1, 2, 3, 4, 5,1, 2, 3, 4, 5,1, 2, 3, 4, 5,]
+            tr.server-info
+              td AAAAAAAAA
+              td 10/12
+              td.text-danger Insanity
+              td 1/3
+            
+
+    .col-md-3
+      h3 Create Room
+      .content-limits 
+        .btn-group-horizontal
+          .btn.btn-default.col-md-12 Public Room
+          .btn.btn-default.col-md-12 Private Room
+        
+    

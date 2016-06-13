@@ -25,6 +25,11 @@
       templateUrl: '../views/blackboard.html',
       controller: 'blackboardCtrl'
     });
+
+    $routeProvider.when('/lobby', {
+      templateUrl: '../views/lobby.html',
+      controller: 'lobbyCtrl'
+    });
   }]);
 
 })();

@@ -1,67 +1,159 @@
 @import "bootstrap.min.css";
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+// VARIABLES
+$color-darkgray: #1c1e22; //rgba(39, 43, 48, 100)
+$color-yellow: #ffc857; //rgba(255, 200, 87, 100)
+$color-orange: #e9724c; //rgba(233, 114, 76, 100)
+$color-darkred: #c5283d; //rgba(197, 40, 61, 100)
+$color-deepblue: #255f85; //rgba(37, 95, 133, 100)
+$color-softwhite: #ebebeb; //
+$color-easygreen: #90ee90; //
+// GENERIC STYLES
+body {
+	font-family: "Roboto";
+}
+.container-fluid {
+	min-height: 700px;
+}
+a {
+	color: $color-deepblue;
+}
+// END GENERIC STYLES
 
-@font-face {
-	font-family: 'fuente-titulo';
-  src : url('../fonts/AdmirationPains.ttf');
-}
-@font-face {
-	font-family: 'fuente-cuerpo';
-  src : url('../fonts/SourceCodePro-Light.otf');
-}
-body{
-	font-family: "fuente-cuerpo";
-}
-.banner{
-	height: 130px;
-}
-.title{
-	font-family: "fuente-titulo";
-	line-height: 130px;
-	font-size: 64px;
-}
-.user{
+// SPECIFIC 4 FRAMEWORK
+	// HEADER
+.title {
+	line-height: 100px;
+	font-size: 50px;
 	text-align: center;
+	a {
+		text-decoration: none;
+		color: $color-softwhite;
+	}
 }
-#blackboard{
-	background-color: white;
+	// END HEADER
+	// FOOTER
+footer{
+	ul{
+		list-style: none;
+	}
+}
+	// END FOOTER
+// END FRAMEWORK
+// SPECIFIC 4 LANDING PAGE
+.login-landing {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 100px;
+	form {
+		border-radius: 5px;
+		width: 500px;
+		background-color: $color-darkgray;
+		border: solid black 1px;
+		padding: 5px;
+		input[type="password"]{
+			margin-bottom: 10px;
+		}
+	}
+}
+// END LANDING PAGE
+
+// SPECIFIC 4 BLACKBOARD
+#blackboard {
+	background-color: $color-softwhite;
 	height: 700px;
 }
-.title{
+.chat {
+	height: 650px;
+}
+#chat-input {
+	height: 50px;
+	background-color: $color-softwhite;
+	resize: none;
+}
+.chat-send{
+	height: 50px;
+	background-image: url('../../media/send.png');
+	background-size: 25px;
+	background-position: center;
+
+}
+
+// END BLACKBOARD
+.banner {
+	height: 100px;
+}
+.user {
 	text-align: center;
 }
-.col-main{
+
+
+.col-main {
 	list-style: none;
 	border: 1px solid black;
 }
-.col-main>li{
+.col-main > li {
 	border: 1px solid black;
 }
-.chat{
-	height: 700px;
-}
-#chat-input{
-	height: 50px;
-	background-color: white;
-	resize: none;
-}
-h3{
+
+h3,
+h4 {
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
 	text-align: center;
-	color: white;
-	background-color: #89609E;
+	color: $color-softwhite;
 	opacity: 1;
 }
-.bg-success{
-	background-color: #62C462;
-	color: white;
+h3 {
+	background-color: $color-darkred;
 }
-.v2 > .user{
+h4 {
+	background-color: $color-orange;
+}
+.bg-success {
+	background-color: #62C462;
+	color: $color-softwhite;
+}
+.bg-content {
+	background-color: $color-softwhite;
+	color: black;
+}
+.v2 > .user {
 	margin-bottom: 10px;
 }
-.container-fluid{
+.container-fluid {
 	min-height: 750px;
 }
-footer{
+footer {
 	text-align: center;
 }
+/*.content-limits{
+	border-left:solid 4px $color-softwhite;
+	border-right:solid 4px $color-softwhite;
+	border-bottom:solid 4px $color-softwhite;
+	min-height: 150px;
+}*/
+th,
+tr {
+	text-align: center;
+}
+// SPECIFIC 4 LOBBY
+.btn-group-horizontal {
+	.btn {
+		margin-bottom: 10px;
+	}
+}
+.server-info {
+	height: 30px;
+	/*border: solid 1px $color-softwhite;
+	margin-bottom: 10px;
+	margin-top: 10px;*/
+}
+.text-easy{
+	color: $color-easygreen;
+}
+.text-normal{
+	color: $color-yellow;
+}
+// END LOBBY
