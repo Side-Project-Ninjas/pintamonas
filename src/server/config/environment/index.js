@@ -28,7 +28,10 @@ var all = {
     ip: process.env.IP || "127.0.0.1",
 
     // Secret key
-    secret: process.env.SECRET || "Take it easy!"
+    secret: process.env.SECRET || "Take it easy!",
+
+    //Salt for hash
+    salt: process.env.SALT || "Salt"
 };
 
 if (all.env !== "production") {

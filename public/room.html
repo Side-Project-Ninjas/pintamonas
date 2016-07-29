@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Pintamonas</title>
+</head>
+
+<body>
+    <input type="text" id="chat" value="" placeholder="chat">
+    <button type="button" id="say" onclick="say()">say</button>
+    <br>
+    <button type="button" onclick="emitTest()">emit test</button>
+    <ul id="log"></ul>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        //SocketIO Debug
+        //localStorage.debug = "*";
+
+        var socket = io('/room');
+        bindIo();
+
+        function bindIo(){
+            var evtLog = [
+                "server:get-rooms",
+                "server:update-chat"
+            ]
+            socket.on("connect", function() {
+                log("CONNECTED TO " + socket.nsp);
+            });
+            socket.on("disconnect", function() {
+                log("DISCONNECT FROM " + socket.nsp);
+            });
+            socket.on("user-join", function(d) {
+                log('user-join', d);
+            });
+            socket.on("user-says", function(payload) {
+                log('user-says', payload.emitter.name, payload.message);
+            });
+
+            for (var ev in evtLog) {
+                socket.on(evtLog[ev], function() {
+                    // console.log.apply(console, arguments);
+                    log(arguments);
+                });
+            }
+
+
+            var startTime;
+
+            setInterval(function() {
+                startTime = Date.now();
+                socket.emit('client:ping');
+            }, 2000);
+
+            socket.on('server:pong', function() {
+                latency = Date.now() - startTime;
+                if (latency > 300) {
+                    warn("Too high latency!", latency);
+                }
+            });
+            socket.on('log', function(d) {
+                log(d);
+            });
+        }
+
+        function say() {
+            var val = $('#say').val();
+            var payload = {
+                message: val
+            }
+            socket.emit("user-say", payload);
+        }
+
+
+        function log() {
+            var args = Array.prototype.slice.call(arguments);
+            var log = $('#log');
+            var text = JSON.stringify(args);
+            var l = $('<li/>').text(text);
+            log.append(l);
+            console.log(arguments);
+        }
+    </script>
+</body>
+
+</html>

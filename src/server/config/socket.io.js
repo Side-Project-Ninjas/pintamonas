@@ -3,117 +3,89 @@
  */
 "use strict";
 
-var rooms = require("../lib/rooms");
+// var rooms = require("../lib/rooms");
+var Room = require("../lib/models/Room");
+var User = require("../lib/models/User");
 
-// When the user disconnects
-function onDisconnect(socket) {
-    rooms.removeUserFromRoom(socket.username, socket.room);
-    socket.broadcast.to(socket.room).emit("server:update-chat", "SERVER", socket.username + " has leaved this room");
-}
-
-// When the user connects
-function onConnect(socket) {
-    // When the client emits "info", this listens and executes
-    socket.on("client:info", function(data) {
-        socket.log(JSON.stringify(data, null, 2));
-    });
-
-    socket.on("client:join-room", function(username, roomname) {
-        var room = rooms.addUserToRoom(username, roomname);
-        // store the name for this client
-        socket.username = username;
-        // store the room name in the socket session for this client
-        socket.room = roomname;
-        // send client to room 1
-        socket.join(roomname);
-        var type = "SERVER";
-        // echo to client they"ve connected
-        socket.emit("server:update-chat", type, "you have connected to room1", {
-            users: room
-        });
-        // echo to room 1 that a person has connected to their room
-        socket.broadcast.to(roomname).emit("server:update-chat", type, username + " has connected to this room");
-        //socket.emit("updaterooms", rooms, "room1");
-        socket.log("USER '{0}' CONNECTED TO ROOM '{1}'".format(username, roomname));
-    });
-}
-
-function onGetRooms(socket) {
-    socket.on("client:get-rooms", function() {
-        socket.emit("server:get-rooms", {
-            rooms: rooms.getRoomList()
-        });
-    });
-}
-
-function onUpdateChat(socket) {
-    socket.on("client:update-chat", function(message) {
-        socket.broadcast.emit("server:update-chat", message);
-    });
-}
-
-function onPing(socket) {
-    socket.on("client:ping", function() {
-        socket.emit("server:pong", "PONG!");
-    });
-}
-
-function onSendDrawing(socket) {
-    socket.on("client:send-drawing", function(data) {
-        if (socket.room){
-            socket.broadcast.to(socket.room).emit("server:send-drawing", data);
-        }
-    });
-}
-
-function onSendColor(socket) {
-    socket.on("client:send-color", function(data) {
-        if (socket.room){
-            socket.broadcast.to(socket.room).emit("server:send-color", data);
-        }
-    });
-}
-
-function onSendSize(socket) {
-    socket.on("client:send-size", function(data) {
-        if (socket.room){
-            socket.broadcast.to(socket.room).emit("server:send-size", data);
-        }
-    });
-}
 
 // Set the SocketIO config up
 // ==========================
-module.exports = function(socketio) {
-    socketio.on("connection", function(socket) {
+module.exports = function(socketio, session) {
+    var sharedsession = require("express-socket.io-session");
+    var root = socketio.of("/");
+    var hub = socketio.of("/hub");
+    var room = socketio.of("/room");
+    root.use(sharedsession(session, {
+        autoSave: true
+    }));
+    hub.use(sharedsession(session, {
+        autoSave: true
+    }));
+    room.use(sharedsession(session, {
+        autoSave: true
+    }));
+    var SocketNamespace = require("../lib/models/SocketNamespace");
+
+    var rootNsp = new SocketNamespace("/", root, onConnect);
+    var roomsNsp = new SocketNamespace("/hub", hub, onConnect);
+    var blackboardNsp = new SocketNamespace("/room", room, onConnect);
+
+    // Setup the namespaces config
+    require("./namespaces/root")(root);
+    require("./namespaces/hub")(hub);
+    require("./namespaces/room")(room);
+
+    function onConnect(client, data) {
+        client.custom = {};
         // Save address
-        socket.address = socket.request.connection.remoteAddress +
-            ":" + socket.request.connection.remotePort;
+        client.custom.address = client.request.connection.remoteAddress +
+            ":" + client.request.connection.remotePort;
 
         // Save connection timestamp
-        socket.connectedAt = new Date();
+        client.custom.connectedAt = new Date();
+
+        // Save user object
+        if (!client.handshake.session || (client.handshake.session && !client.handshake.session.userId)) {
+            client.emit("error", {error: "session not found"});
+            client.disconnect();
+            return;
+        }
+
+        client.getUser = function() {
+            if (client.handshake.session && client.handshake.session.userId) {
+                return User.getUserById(client.handshake.session.userId);
+            }
+        };
+
+        client.getRoom = function() {
+            if (client.handshake.session && client.handshake.session.room) {
+                return Room.getRoom(client.handshake.session.room);
+            }
+        };
+
+        var user = client.getUser();
+
+        user.setSocket(client);
 
         // Define log method
-        socket.log = function() {
+        client.log = function() {
             var args = Array.prototype.slice.call(arguments, 0);
-            args.unshift("{0} {1} [{2}]".format("[SocketIO]".green, socket.nsp.name, socket.address));
+            args.unshift("{0} {1} [{2}]".format("[SocketIO]".green, client.nsp.name, client.custom.address));
             console.log.apply(console, args);
         };
 
         // Call onDisconnect
-        socket.on("disconnect", function() {
-            onDisconnect(socket);
-            socket.log("USER DISCONNECTED".red);
+        client.on("disconnect", function() {
+            client.log("USER DISCONNECTED".red);
+            var room, user = client.getUser();
+            if (user) {
+                room = user.getRoom();
+                if (room) {
+                    room.removeUser(user.getFullName());
+                }
+            }
         });
 
-        // Call onX functions
-        onConnect(socket);
-        onGetRooms(socket);
-        onUpdateChat(socket);
-        onPing(socket);
-        onSendDrawing(socket);
-        onSendColor(socket);
-        onSendSize(socket);
-        socket.log("USER CONNECTED".blue);
-    });
+        client.log("USER CONNECTED".blue);
+    }
 };

@@ -5,6 +5,8 @@
 
 var express = require("express");
 var rooms = require("../lib/rooms");
+var User = require("../lib/models/User");
+var Room = require("../lib/models/Room");
 var router = new express.Router();
 
 // Set the API routes
@@ -19,11 +21,33 @@ router.get("/version", function(req, res) {
     });
 });
 
-router.get("/rooms", function(req, res) {
-    var r = {
-        rooms: rooms.getRoomList()
+router.post("/name", function(req, res) {
+    var user = User.getUserById(req.session.userId);
+    user.setName(req.body.name);
+    var response = {
+        status: "OK",
+        name: user.getName(),
+        discriminator: user.getDiscriminator()
     };
-    res.json(r);
+
+    res.json(response);
+});
+
+router.get("/hub/rooms", function(req, res) {
+    var response = Room.getRoomsAsObject();
+    res.json(response);
+});
+
+router.post("/join", function(req, res) {
+    req.session.room = req.body.name;
+    if (!req.body.name) {
+        req.session.room = (new Room()).getName();
+    }
+    var response = {
+        status: "OK",
+        room: req.session.room
+    };
+    res.json(response);
 });
 
 
