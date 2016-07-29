@@ -7,74 +7,27 @@
 </head>
 
 <body>
-    <input type="text" id="joinusername" value="Diego">
-    <input type="text" id="joinroom" value="room1">
-    <button onclick="onjoinclick()">Join room</button>
+    <input type="text" id="name" value="" placeholder="name">
+    <button type="button" id="button" onclick="postName()">Go</button>
     <br>
-    <button onclick="ongetrooms()">Rooms</button>
-    <br>
-    <input type="text" id="emitevt" value="info">
-    <button onclick="onsendevt()">Send</button>
-    <br>
-    <input type="text" id="say" value="Hello!">
-    <button onclick="onsayevt()">Say</button>
-    <br>
-
-    <script src="/socket.io/socket.io.js"></script>
+    <a href="/hub.html">hub</a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script type="text/javascript">
         //SocketIO Debug
         //localStorage.debug = "*";
 
-        var socket = io();
+        function postName() {
+            var val = $('#name').val();
+            $.post("/api/name", {
+                    name: val
+                })
+                .done(function(data) {
+                    console.log("Data Loaded: ", data);
+                    window.location.href = './hub.html'
+                }).fail(function(data) {
+                    console.log("Error: ", data);
+                });
 
-        var evtLog = [
-            "server:get-rooms",
-            "server:update-chat"
-        ]
-        socket.on("connect", function() {
-            console.log("CONNECTED");
-        });
-
-        for (var ev in evtLog) {
-            socket.on(evtLog[ev], function() {
-                console.log.apply(console, arguments);
-            });
-        }
-
-
-        var startTime;
-
-        setInterval(function() {
-            startTime = Date.now();
-            socket.emit('client:ping');
-        }, 2000);
-
-        socket.on('server:pong', function() {
-            latency = Date.now() - startTime;
-            if (latency > 300) {
-                console.warn("Too high latency!", latency);
-            }
-        });
-
-
-        function onjoinclick() {
-            var room = document.getElementById("joinroom").value;
-            var user = document.getElementById("joinusername").value;
-            socket.emit("client:join-room", user, room);
-        }
-
-        function ongetrooms() {
-            socket.emit("client:get-rooms");
-        }
-
-        function onsendevt() {
-            var evt = document.getElementById("emitevt").value;
-            socket.emit("client:" + evt);
-        }
-
-        function onsayevt() {
-            var msg = document.getElementById("say").value;
-            socket.emit("client:update-chat", msg);
         }
     </script>
 </body>

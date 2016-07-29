@@ -10,15 +10,28 @@ var config = require("./config/environment");
 // Express setup
 // =============
 var express = require("express");
+
 var app = express();
-require("./config/express")(app);
+// SESSION CAST MUST BE THE SAME TO EXPRESS AND SOCKET.IO IN ORDER TO WORK
+var session = require("express-session")({
+    secret: "secret",
+    key: "express.sid",
+    resave: true,
+    saveUninitialized: true
+});
+require("./config/express")(app, session);
 require("./routes")(app);
 var http = require("http").Server(app);
+
 
 // SocketIO setup
 // ==============
 var io = require("socket.io")(http);
-require("./config/socket.io")(io);
+var sharedsession = require("express-socket.io-session");
+io.use(sharedsession(session, {
+    autoSave: true
+}));
+require("./config/socket.io")(io, session);
 
 
 // Start server
