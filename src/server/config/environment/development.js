@@ -9,5 +9,5 @@ var path = require("path");
 // =================
 module.exports = {
     // Public path from project root
-    publicPath: path.resolve("public")
+    publicPath: path.resolve("../../public")
 };

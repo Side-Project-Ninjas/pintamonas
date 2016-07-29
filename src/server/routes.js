@@ -5,6 +5,6 @@
 
 // Export routes
 // ============
-module.exports = function(app){
+module.exports = function(app) {
     // Set routes
 };
