@@ -1,7 +1,7 @@
 /**
  * Main access
  */
-"use strict";
+// "use strict";
 
 // Global modifiers
 // ================
