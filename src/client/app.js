@@ -4,9 +4,9 @@
   // Declare app level module which depends on views, and components
   angular.module('pintamonas', [
     'ngRoute',
-    'pintamonas.login',
-    'pintamonas.painting',
-    'pintamonas.blackboard'
+    'pintamonas.landing',
+    'pintamonas.hub',
+    'pintamonas.room'
   ]).
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/'});
@@ -16,19 +16,14 @@
       controller: 'LandingCtrl'
     });
 
-    $routeProvider.when('/login', {
-      templateUrl: 'views/login.html',
-      controller: 'LoginCtrl'
+    $routeProvider.when('/room/:roomName', {
+      templateUrl: '../views/room.html',
+      controller: 'RoomCtrl'
     });
 
-    $routeProvider.when('/blackboard', {
-      templateUrl: '../views/blackboard.html',
-      controller: 'blackboardCtrl'
-    });
-
-    $routeProvider.when('/lobby', {
-      templateUrl: '../views/lobby.html',
-      controller: 'lobbyCtrl'
+    $routeProvider.when('/hub', {
+      templateUrl: '../views/hub.html',
+      controller: 'HubCtrl'
     });
   }]);
 

@@ -52,7 +52,7 @@ Room.prototype.addUser = function Room$addUser(user) {
         throw new Error("Can add more users to room. Max users reached");
     }
     user.joinRoom(this);
-    this._socket.emit("user-join", `User ${user.getName()} joined.`);
+    this._socket.emit("user-join", {action: "leave", emitter: {name: user.getName(), discriminator: user.getDiscriminator()}}, `User ${user.getName()} joined.`);
     this._users.push(user);
 };
 Room.prototype.removeUser = function Room$removeUser(fullname) {
@@ -70,7 +70,7 @@ Room.prototype.removeUser = function Room$removeUser(fullname) {
         throw new Error("User not found");
     }
     foundUser.leaveRoom();
-    this._socket.emit("user-leave", `User ${foundUser.getName()} leaved.`);
+    this._socket.emit("user-leave", {action: "leave", emitter: {name: foundUser.getName(), discriminator: foundUser.getDiscriminator()}}, `User ${foundUser.getName()} leaved.`);
     this._users.splice(foundIndex, 1);
     //to destroy room, delete when length==0
 };

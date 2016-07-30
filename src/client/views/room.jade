@@ -1,0 +1,16 @@
+.col-md-1
+      h3 Users
+      .content-limits
+        .well.well-sm.user(ng-class="{'bg-success': user.success}" ng-repeat="user in users") {{user.name}}
+    .col-md-8
+      h3 Pizarra
+      canvas#blackboard.col-md-12
+    .col-md-3
+      h3 Chat
+      .chat.content-limits
+        p(ng-repeat="message in chat")
+            strong {{message.emitter.name}}: 
+            {{message.message}}
+      .form-group.col-md-11
+        textarea(name="name", rows="5", cols="40")#chat-input.form-control
+      button.btn.btn-default.col-md-1.chat-send

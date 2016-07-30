@@ -37,7 +37,7 @@ var config = {
       public: "./public/"
     },
     vendor: {
-      src: ["./src/client/vendor/*"],
+      src: ["./src/client/vendor/jQuery", "./src/client/vendor/*"],
       public: "./public/resources/vendor"
     }
   }
@@ -47,6 +47,7 @@ var config = {
 gulp.task("serve", "Sirve la aplicación", ["compile", "nodemon"], function() {
 
   browserSync.init({
+    ghostMode: false,
     proxy: {
       target: "http://localhost:3000",
       ws: true
