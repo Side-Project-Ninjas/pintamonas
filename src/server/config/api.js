@@ -4,13 +4,14 @@
 "use strict";
 
 var express = require("express");
-var rooms = require("../lib/rooms");
 var User = require("../lib/models/User");
 var Room = require("../lib/models/Room");
+var apiMiddleware = require("./middlewares/api");
 var router = new express.Router();
 
 // Set the API routes
 // ==================
+
 router.get("/", function(req, res) {
     res.send("Pintamonas API");
 });
@@ -21,17 +22,22 @@ router.get("/version", function(req, res) {
     });
 });
 
-router.post("/name", function(req, res) {
-    var user = User.getUserById(req.session.userId);
-    user.setName(req.body.name);
-    var response = {
-        status: "OK",
-        name: user.getName(),
-        discriminator: user.getDiscriminator()
-    };
-
+router.post("/name", function(req, res, next) {
+    var response, user = User.getUserById(req.session.userId);
+    if (!user.getName()) {
+        user.setName(req.body.name);
+        response = {
+            status: "OK",
+            name: user.getName(),
+            discriminator: user.getDiscriminator()
+        };
+    } else {
+        return next(new Error("Name already set"));
+    }
     res.json(response);
 });
+
+apiMiddleware(router);
 
 router.get("/hub/rooms", function(req, res) {
     var response = Room.getRoomsAsObject();
@@ -49,6 +55,5 @@ router.post("/join", function(req, res) {
     };
     res.json(response);
 });
-
 
 module.exports = router;

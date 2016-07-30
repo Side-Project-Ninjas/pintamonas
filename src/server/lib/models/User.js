@@ -5,7 +5,7 @@ var config = require("../../config/environment");
 
 var users = [];
 var discriminators = {};
-var id = 0;
+var id = 1;
 
 function User(name) {
     if (name) {

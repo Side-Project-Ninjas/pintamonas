@@ -28,6 +28,8 @@
         "no-unreachable": 1,
         "use-isnan": 1,
         "valid-typeof": 2,
+        "linebreak-style": 0,
+        "indent": ["error", 2],
         "block-scoped-var": 1,
         "complexity": 1,
         "curly": 1,
