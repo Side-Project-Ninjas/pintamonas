@@ -11,8 +11,14 @@ module.exports = function(app) {
     //Set user if not exists
     app.use(function createNewUserId(req, res, next) {
         if (req.session && !req.session.userId) {
+            res.clearCookie('pintamonas.user');
             req.session.userId = (new User()).getId();
             req.session.save();
+        } else if (req.session && req.session.userId) {
+            var user = User.getUserById(req.session.userId);
+            if (user.getName() && !req.cookies['pintamonas.user']) {
+                res.cookie('pintamonas.user', user.getName());
+            }
         }
         next();
     });
