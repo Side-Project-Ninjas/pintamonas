@@ -11,6 +11,7 @@
     "angular-loader": "1.4.10",
     "angular-mocks": "1.4.10",
     "html5-boilerplate": "~5.2.0",
-    "jQuery": "~1.7.0"
+    "jQuery": "~1.7.0",
+    "angular-socket-io": "^0.7.0"
   }
 }
