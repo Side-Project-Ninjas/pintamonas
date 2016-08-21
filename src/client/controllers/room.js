@@ -4,25 +4,11 @@ angular.module('pintamonas.room', ['ngRoute'])
   .controller('RoomCtrl', roomCtrl);
 
 /** @ngInject */
-function roomCtrl($scope) {
-  $scope.chat = [{
-    emitter: {
-      name: 'SERVER',
-      discriminator: 0
-    },
-    message: 'Welcome'
-  }, {
-    emitter: {
-      name: 'SERVER',
-      discriminator: 0
-    },
-    message: 'Welcome'
-  }];
+function roomCtrl($scope, spnSocket) {
+  var socket = spnSocket.getRoomSocket($scope);
 
-  $scope.users = [{
-    name: 'ME',
-    success: false
-  }];
+  $scope.chat = [];
+  $scope.users = [];
 
   var sendMessageButton = angular.element('.chat-send');
   var sendMessageTextBox = angular.element('#chat-input');
@@ -36,16 +22,11 @@ function roomCtrl($scope) {
   });
 
 
+  $scope.$on('socket:user-says', onUserSays);
+  $scope.$on('socket:user-join', onUserJoin);
+  $scope.$on('socket:log', onLog);
 
-  var socket = io('/room');
-
-  socket.on("connect", function() {
-    console.log("CONNECTED TO " + socket.nsp);
-  });
-  socket.on("disconnect", function() {
-    console.log("DISCONNECT FROM " + socket.nsp);
-  });
-  socket.on("user-says", function(payload) {
+  function onUserSays(evt, payload) {
     console.log('user-says', payload);
     $scope.chat.push({
       emitter: {
@@ -55,8 +36,9 @@ function roomCtrl($scope) {
       message: payload.message
     });
     $scope.$apply();
-  });
-  socket.on("user-join", function(payload) {
+  }
+
+  function onUserJoin(evt, payload) {
     console.log('user-join', payload);
     $scope.chat.push({
       emitter: {
@@ -70,8 +52,9 @@ function roomCtrl($scope) {
       success: false
     });
     $scope.$apply();
-  });
-  socket.on('log', function(d) {
+  }
+
+  function onLog(d) {
     console.log(d);
-  });
+  }
 }
