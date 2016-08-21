@@ -26,6 +26,7 @@ function Room() {
         Room.hubSocket.emit("new-room", {
             name: fullname,
             maxUsers: this._maxUsers,
+            currentUsers: 0,
             level: this._level
         });
     }
@@ -52,8 +53,16 @@ Room.prototype.addUser = function Room$addUser(user) {
         throw new Error("Can add more users to room. Max users reached");
     }
     user.joinRoom(this);
-    this._socket.emit("user-join", {action: "leave", emitter: {name: user.getName(), discriminator: user.getDiscriminator()}}, `User ${user.getName()} joined.`);
     this._users.push(user);
+    Room.hubSocket.emit("room-update", {
+        name: this._name,
+        maxUsers: this._maxUsers,
+        currentUsers: this._users.length,
+        level: this._level
+    });
+    if (this._socket) {
+        this._socket.emit("user-join", {action: "join", emitter: {name: user.getName(), discriminator: user.getDiscriminator()}}, `User ${user.getName()} joined.`);
+    }
 };
 Room.prototype.removeUser = function Room$removeUser(fullname) {
     var foundIndex = -1;
