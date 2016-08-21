@@ -46,7 +46,7 @@ module.exports = function(socketio, session) {
 
         // Save user object
         if (!client.handshake.session || (client.handshake.session && !client.handshake.session.userId)) {
-            client.emit("error", {error: "session not found"});
+            // client.emit("error", {error: "session not found"});
             client.disconnect();
             return;
         }
