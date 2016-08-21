@@ -45,9 +45,14 @@ router.get("/hub/rooms", function(req, res) {
 });
 
 router.post("/join", function(req, res) {
+    var room, user = User.getUserById(req.session.userId);
     req.session.room = req.body.name;
     if (!req.body.name) {
-        req.session.room = (new Room()).getName();
+        room = new Room();
+        req.session.room = room.getName();
+    } else {
+        room = Room.getRoom(req.body.name);
+        room.addUser(user);
     }
     var response = {
         status: "OK",
