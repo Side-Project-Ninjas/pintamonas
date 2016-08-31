@@ -4,7 +4,7 @@
         .well.well-sm.user(ng-class="{'bg-success': user.success}" ng-repeat="user in users") {{user.name}}
     .col-md-8
       h3 Pizarra
-      canvas#blackboard.col-md-12
+      canvas#painting.painting.col-md-12(width="600" height="600")
     .col-md-3
       h3 Chat
       .chat.content-limits
