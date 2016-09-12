@@ -20,6 +20,9 @@
     };
 
     function createConnection(path, scope) {
+      // TODO: Se conecta al socket al principio del controller
+      // y se guarda en un servicio
+      // Las directivas acceden al servicio para recuperar la instancia del socket
       var myIoSocket = io.connect(path);
       var mySocket = socketFactory({
         ioSocket: myIoSocket
