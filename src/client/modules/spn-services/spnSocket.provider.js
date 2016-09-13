@@ -10,19 +10,25 @@
   function service($rootScope, socketFactory) {
 
     var evts = ['connect', 'disconnect', 'new-room', 'room-update','user-say', 'user-says', 'user-join', 'user-leave', 'log'];
+    var connectedSocket;
     var service = {
       getHubSocket: function(scope) {
         return createConnection('/hub', scope);
       },
       getRoomSocket: function(scope) {
         return createConnection('/room', scope);
-      }
+      },
+      getConnectedSocket: getConnectedSocket
     };
 
+    // NOTE: Quizá sólo haga falta guardar un socket, ya que sólo se va a estar en un estado
+
+    function getConnectedSocket() {
+      return connectedSocket;
+    }
+
     function createConnection(path, scope) {
-      // TODO: Se conecta al socket al principio del controller
-      // y se guarda en un servicio
-      // Las directivas acceden al servicio para recuperar la instancia del socket
+      // TODO: Guardar aquí el socket en la variable para poder acceder directamente desde las directivas
       var myIoSocket = io.connect(path);
       var mySocket = socketFactory({
         ioSocket: myIoSocket
@@ -39,6 +45,8 @@
         console.log('Destroying socket');
         mySocket.disconnect();
       });
+
+      connectedSocket = mySocket;
 
       return mySocket;
     }

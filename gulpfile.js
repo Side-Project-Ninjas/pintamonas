@@ -23,7 +23,7 @@ var config = {
   paths: {
     server: "./src/server/index.js",
     styles: {
-      src: ["./src/client/resources/styles/**/*.scss"],
+      src: ["./src/client/**/*.scss"],
       public: "./public/resources/css/",
       map: "./"
     },
