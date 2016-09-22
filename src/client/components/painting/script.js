@@ -26,7 +26,7 @@
       };
     }
 
-    function linkFunc(scope) {
+    function linkFunc(scope, el) {
       var socket = spnSocket.getConnectedSocket();
 
       // La directiva se debe encargar de:
@@ -41,10 +41,60 @@
       // --- CÓDIGO DE CANVAS-TEST
       // TODO: Adaptar JADE
       scope.clearArea = clearArea;
-      var mousePressed = false;
       var lastX, lastY;
       var ctx;
       var positionArray = [];
+
+      var canvas = el.find('#painting');
+      var context = canvas.getContext('2d');
+      var mousePressed = false;
+
+      // TODO: Normalizar la posición del dibujo
+      // var width   = window.innerWidth;
+      // var height  = window.innerHeight;
+      // canvas.width = width;
+      // canvas.height = height;
+
+      // Bindea eventos al canvas
+      // Cuando se presiona el click
+      canvas.bind('mousedown', canvasMousedown);
+      // Cuando se mueve el ratón
+      canvas.bind('mousemove', canvasMousemove);
+      // Cuando se levanta el click
+      canvas.bind('mouseup', canvasMouseup);
+      // Cuando se saca el ratón del canvas
+      canvas.bind('mouseleave', canvasMouseleave);
+
+      // Función que se ejecuta cuando se pulsa el click
+      function canvasMousedown() {
+        mousePressed = true;
+        context.beginPath();
+      }
+
+      // Función que se ejecuta cuando se mueve el ratón
+      function canvasMousemove(e) {
+        if (mousePressed) {
+          // mousePosition.x = e.clientX / width;
+          // mousePosition.y = e.clientY / height;
+
+        }
+      }
+
+      // Función que se ejecuta cuando se suelta el click
+      // TODO: Si no hay ninguna diferencia con mouseleave, evitar duplicidad
+      function canvasMouseup() {
+        mousePressed = false;
+        context.closePath();
+        context.stroke();
+      }
+
+      // Función que se ejecuta cuando se saca el ratón del canvas
+      // TODO: Si no hay ninguna diferencia con mouseup, evitar duplicidad
+      function canvasMouseleave() {
+        mousePressed = false;
+        context.closePath();
+        context.stroke();
+      }
 
       $interval(function() {
         if (positionArray.length > 0) {
@@ -62,7 +112,6 @@
       initThis();
 
       function initThis() {
-        ctx = document.getElementById('painting').getContext("2d");
 
         $('#painting').mousedown(function (e) {
           mousePressed = true;
