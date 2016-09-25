@@ -34,6 +34,11 @@ module.exports = function(nsp) {
             client.broadcast.to(roomname).emit("user-says", payload);
         });
 
+        client.on("draw-line", function(line) {
+            console.log("Broadcasting line to draw");
+            client.broadcast.to(roomname).emit("draw-line", line);
+        });
+
         client.on("join-room", function(roomname) {
             var room;
             if (roomname) {
