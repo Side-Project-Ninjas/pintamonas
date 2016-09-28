@@ -89,8 +89,10 @@
 
       function mainLoop() {
         if (mouse.pressed && mouse.moving && line.length > 0) {
-          // socket.emit('draw-line', line);
+          socket.emit('draw-line', line);
           draw(line);
+          line[0] = line[line.length - 1];
+          line.length = 1;
           mouse.moving = false;
         }
         requestAnimationFrame(mainLoop);
@@ -110,9 +112,6 @@
           context.lineTo(dot.x, dot.y);
         }
         context.stroke();
-
-        data[0] = data[data.length - 1];
-        data.length = 1;
 
       }
 
@@ -145,7 +144,7 @@
         line = [];
         mouse.pressed = false;
         context.closePath();
-        context.stroke();
+        // context.stroke();
       }
 
       function oldDraw(x, y, isDown) { //TODO: Evitar crear y cerrar paths por cada punto que se pinta
