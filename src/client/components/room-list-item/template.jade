@@ -1,7 +1,9 @@
-.table-cell {{room.name}}
-.table-cell {{room.currentUsers}}/{{room.maxUsers}}
-.table-cell(ng-class="{'text-easy': room.level === 0, 'text-normal': room.level === 1, 'text-danger': room.level === 2}")
+.col-md-12.col-sm-12
+  .col-md-1.col-sm-1 1
+  .col-md-3.col-sm-3 {{room.name}}
+  .col-md-2.col-sm-2 {{room.currentUsers}}/{{room.maxUsers}}
+  .col-md-2.col-sm-2(ng-class="{'text-easy': room.level === 0, 'text-normal': room.level === 1, 'text-danger': room.level === 2}")
   | {{levelNames[room.level]}}
-.table-cell 1/3
-.table-cell 
-  span(id="room-{{$index}}" ng-click="joinRoom()") Join
+  .col-md-2.col-sm-2 1/3
+  .col-md-2.col-sm-2
+    span(id="room-{{$index}}" ng-click="joinRoom()") Join

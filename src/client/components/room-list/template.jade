@@ -1,8 +1,15 @@
-div.col-md-12.table-hover.table(ng-click="log()")
-  div.table-row
-    div.table-cell Nombre
-    div.table-cell Jugadores
-    div.table-cell Dificultad
-    div.table-cell Ronda
-    div.table-cell
+div.table.table-striped(ng-click="log()")
+  .col-md-12.col-sm-12
+    .col-md-1.col-sm-1
+      h4 #
+    .col-md-3.col-sm-3
+      h4 Nombre
+    .col-md-2.col-sm-2
+      h4 Jugadores
+    .col-md-2.col-sm-2
+      h4 Dificultad
+    .col-md-2.col-sm-2
+      h4 Ronda
+    .col-md-2.col-sm-2
+      h4 Action
   spn-room-list-item.table-row(room="room" ng-repeat="room in rooms track by $index")

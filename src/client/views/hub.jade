@@ -1,14 +1,38 @@
 .container
   .row
-    .col-md-9
-
-              
-    spn-room-list(rooms="rooms")
-            
-
-    .col-md-3
+    .col-md-3.hidden-md.hidden-lg
       h3 Create Room
       .content-limits 
         .btn-group-horizontal
+          .form-group.text-center
+            label Nombre de sala
+            input.form-control(type="text")
+            label Dificultad
+            select.form-control
+              option Facil
+              option Medio
+              option Dificil
+              opcion Extremo
+            label Otro
+            input.form-control
+          .btn.btn-default.col-md-12(id="newRoom") New room
+          //.btn.btn-default.col-md-12 Private Room
+    .col-md-9      
+      spn-room-list(rooms="rooms")
+    .col-md-3.hidden-sm
+      h3 Create Room
+      .content-limits 
+        .btn-group-horizontal
+          .form-group.text-center
+            label Nombre de sala
+            input.form-control(type="text")
+            label Dificultad
+            select.form-control
+              option Facil
+              option Medio
+              option Dificil
+              opcion Extremo
+            label Otro
+            input.form-control
           .btn.btn-default.col-md-12(id="newRoom") New room
           //.btn.btn-default.col-md-12 Private Room
